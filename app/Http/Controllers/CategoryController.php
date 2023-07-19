@@ -17,12 +17,12 @@ class CategoryController extends Controller
     public function index()
     {
         $category = $this->category->latest()->paginate(5);
-        return view('category.index', compact('category'));
+        return view('admin.category.index', compact('category'));
     }
     public function create()
     {
         $htmlOption = $this->getCategory($category = '');
-        return view('category.add', compact('htmlOption'));
+        return view('admin.category.add', compact('htmlOption'));
     }
     public function store(Request $request)
     {
@@ -31,7 +31,7 @@ class CategoryController extends Controller
             'parent_id' => $request->parent_id,
             'slug' => Str::slug($request->name) //Str::slug chuyển dổi n doạn thành 1 chuỗi
         ]);
-        return redirect()->route('categories.index');
+        return redirect()->route('admin.categories.index');
     }
     public function getCategory($parentid)
     {
@@ -44,7 +44,7 @@ class CategoryController extends Controller
     {
         $category = $this->category->find($id);
         $htmlOption = $this->getCategory($category->parent_id);
-        return view('category.edit', compact('category', 'htmlOption'));
+        return view('admin.category.edit', compact('category', 'htmlOption'));
     }
     public function update($id, Request $request)
     {
@@ -53,9 +53,11 @@ class CategoryController extends Controller
             'parent_id' => $request->parent_id,
             'slug' => Str::slug($request->name) //Str::slug chuyển dổi n doạn thành 1 chuỗi
         ]);
-        return redirect()->route('categories.index');
+        return redirect()->route('admin.categories.index');
     }
     public function delete($id)
     {
+        $this->category->find($id)->delete();
+        return redirect()->route('admin.categories.index');
     }
 }
