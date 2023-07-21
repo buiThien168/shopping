@@ -5,6 +5,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminSliderController;
+use App\Http\Controllers\AdminSettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,5 +51,21 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit/{id}', [AdminProductController::class, 'edit'])->name('product.edit');
         Route::post('/update/{id}', [AdminProductController::class, 'update'])->name('product.update');
         Route::get('/delete/{id}', [AdminProductController::class, 'delete'])->name('product.delete');
+    });
+    Route::prefix('slider')->group(function () {
+        Route::get('/', [AdminSliderController::class, 'index'])->name('slider.index');
+        Route::get('/create', [AdminSliderController::class, 'create'])->name('slider.create');
+        Route::post('/store', [AdminSliderController::class, 'store'])->name('slider.store');
+        Route::get('/edit/{id}', [AdminSliderController::class, 'edit'])->name('slider.edit');
+        Route::post('/update/{id}', [AdminSliderController::class, 'update'])->name('slider.update');
+        Route::get('/delete/{id}', [AdminSliderController::class, 'delete'])->name('slider.delete');
+    });
+    Route::prefix('settings')->group(function () {
+        Route::get('/', [AdminSettingController::class, 'index'])->name('settings.index');
+        Route::get('/create', [AdminSettingController::class, 'create'])->name('settings.create');
+        Route::post('/store', [AdminSettingController::class, 'store'])->name('settings.store');
+        Route::get('/edit/{id}', [AdminSettingController::class, 'edit'])->name('settings.edit');
+        Route::post('/update/{id}', [AdminSettingController::class, 'update'])->name('settings.update');
+        Route::get('/delete/{id}', [AdminSettingController::class, 'delete'])->name('settings.delete');
     });
 });

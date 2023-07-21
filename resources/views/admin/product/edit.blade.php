@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    <title>
-        Product</title>
+    <title>Product</title>
 @endsection
 @section('css')
     <link href="{{ asset('vendor/select2/css_select2.min.css') }}" rel="stylesheet" />
@@ -12,10 +11,10 @@
     <div class="content-wrapper">
         @include('partials.content-header', [
             'name' => 'Product',
-            'key' => 'Add',
+            'key' => 'Edit',
         ])
         <!-- Main content -->
-        <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('product.update', ['id' => $product->id]) }}" method="post" enctype="multipart/form-data">
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -23,58 +22,61 @@
                             @csrf
                             <div class="form-group">
                                 <label>Tên sản phẩm</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" placeholder="Nhập tên sản phẩm" value="{{ old('name') }}">
-                                @error('name')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <input value="{{ $product->name }}" type="text" class="form-control" name="name"
+                                    placeholder="Nhập tên sản phẩm">
                             </div>
                             <div class="form-group">
                                 <label>Giá sản phẩm</label>
-                                <input type="text" class="form-control @error('price') is-invalid @enderror"
-                                    name="price" placeholder="Nhập giá sản phẩm" value="{{ old('price') }}">
-                                @error('price')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <input value="{{ $product->price }}" type="text" class="form-control" name="price"
+                                    placeholder="Nhập giá sản phẩm">
                             </div>
                             <div class="form-group">
                                 <label>Chọn hình ảnh</label>
                                 <input type="file" class="form-control-file" name="feature_image_path">
+                                <div class="col-md-8 container_image_detail">
+                                    <div class="row">
+                                        <img src="{{ $product->feature_image_path }}" alt="">
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Chọn hình ảnh chi tiết</label>
                                 <input multiple type="file" class="form-control-file" name="image_path[]">
+                                <div class="col-md-8 container_image_detail">
+                                    <div class="row">
+                                        @foreach ($product->productImages as $product_imageItem)
+                                            <div class="col-md-3">
+                                                <img class="image_detail_upload" src="{{ $product_imageItem->image_path }}"
+                                                    alt="">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Chọn danh mục cha</label>
-                                <select class="form-control select2_init @error('parent_id') is-invalid @enderror"
-                                    name="parent_id">
+                                <select class="form-control select2_init" name="parent_id">
                                     <option value="0">Chọn danh mục cha</option>
                                     {!! $htmlOption !!}
                                 </select>
-                                @error('parent_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Chọn tags sản phẩm</label>
                                 <select name="tags[]" class="form-control tags_select_choose" multiple="multiple">
-
+                                    @foreach ($product->tags as $tagsItem)
+                                        <option value="{{ $tagsItem->name }}" selected>{{ $tagsItem->name }}></option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Nội dung</label>
-                                <textarea class="form-control tinymce_editor_init @error('contents') is-invalid @enderror" name="contents"
-                                    rows="8">{{ old('contents') }}</textarea>
-                                @error('contents')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <textarea class="form-control tinymce_editor_init" name="contents" rows="8">{{ $product->content }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </div>
                     <!-- /.row -->

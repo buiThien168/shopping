@@ -12,7 +12,7 @@ trait StorageImageTrait
         if ($request->hasFile($fieldName)) {
             $file = $request->$fieldName;
             $fileNameOrigin = $file->getClientOriginalName(); // tên file gốc
-            $fileNameHash = Str::slug(20) . '.' . $file->getClientOriginalExtension(); // lấy phần mở rộng file (jpg,png)
+            $fileNameHash = Str::random(20) . '.' . $file->getClientOriginalExtension(); // lấy phần mở rộng file (jpg,png)
             $filePath = $request->file($fieldName)->storeAs('public/' . $foderName . '/' . auth()->id(), $fileNameHash);
             $dataUploadTrait = [
                 'file_name' => $fileNameOrigin,
@@ -26,7 +26,7 @@ trait StorageImageTrait
     public function storageTraitUploadMutiple($file, $foderName)
     {
         $fileNameOrigin = $file->getClientOriginalName(); // tên file gốc
-        $fileNameHash = Str::slug(20) . '.' . $file->getClientOriginalExtension(); // lấy phần mở rộng file (jpg,png)
+        $fileNameHash = Str::random(20) . '.' . $file->getClientOriginalExtension(); // lấy phần mở rộng file (jpg,png)
         $filePath = $file->storeAs('public/' . $foderName . '/' . auth()->id(), $fileNameHash);
         $dataUploadTrait = [
             'file_name' => $fileNameOrigin,
