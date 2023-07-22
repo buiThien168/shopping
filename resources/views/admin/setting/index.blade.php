@@ -5,6 +5,10 @@
 @section('css')
     <link href="{{ asset('admin_assest/settings/add/add.css') }}" rel="stylesheet" />
 @endsection
+@section('js')
+    <script src="{{ asset('vendor/sweetalert/sweetalert.js') }}"></script>
+    <script src="{{ asset('admin_assest/main.js') }}"></script>
+@endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -36,6 +40,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Config key</th>
                                     <th scope="col">Config value</th>
+                                    <th scope="col">Type</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -45,10 +50,13 @@
                                         <th scope="row">{{ $settings->id }}</th>
                                         <th scope="row">{{ $settings->config_key }}</th>
                                         <th scope="row">{{ $settings->config_value }}</th>
+                                        <th scope="row">{{ $settings->type }}</th>
                                         <td>
-                                            <a href="{{ route('settings.edit', ['id' => $settings->id]) }}"
+                                            <a href="{{ route('settings.edit', ['id' => $settings->id]) . request()->type }}"
                                                 class="btn btn-default">Edit</a>
-                                            <a href="" class="btn btn-danger">Delete</a>
+                                            <a href=""
+                                                data-url="{{ route('settings.delete', ['id' => $settings->id]) }}"
+                                                class="btn btn-danger action_delete">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

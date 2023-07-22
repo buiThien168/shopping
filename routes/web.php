@@ -7,6 +7,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminSliderController;
 use App\Http\Controllers\AdminSettingController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminRolesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -67,5 +69,21 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit/{id}', [AdminSettingController::class, 'edit'])->name('settings.edit');
         Route::post('/update/{id}', [AdminSettingController::class, 'update'])->name('settings.update');
         Route::get('/delete/{id}', [AdminSettingController::class, 'delete'])->name('settings.delete');
+    });
+    Route::prefix('user')->group(function () {
+        Route::get('/', [AdminUserController::class, 'index'])->name('user.index');
+        Route::get('/create', [AdminUserController::class, 'create'])->name('user.create');
+        Route::post('/store', [AdminUserController::class, 'store'])->name('user.store');
+        Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('user.edit');
+        Route::post('/update/{id}', [AdminUserController::class, 'update'])->name('user.update');
+        Route::get('/delete/{id}', [AdminUserController::class, 'delete'])->name('user.delete');
+    });
+    Route::prefix('roles')->group(function () {
+        Route::get('/', [AdminRolesController::class, 'index'])->name('roles.index');
+        Route::get('/create', [AdminRolesController::class, 'create'])->name('roles.create');
+        Route::post('/store', [AdminRolesController::class, 'store'])->name('roles.store');
+        Route::get('/edit/{id}', [AdminRolesController::class, 'edit'])->name('roles.edit');
+        Route::post('/update/{id}', [AdminRolesController::class, 'update'])->name('roles.update');
+        Route::get('/delete/{id}', [AdminRolesController::class, 'delete'])->name('roles.delete');
     });
 });

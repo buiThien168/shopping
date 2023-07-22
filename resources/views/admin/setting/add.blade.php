@@ -14,7 +14,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="{{ route('settings.store') }}" method="post">
+                        <form action="{{ route('settings.store') . '?type=' . request()->type }}" method="post">
                             @csrf
                             <div class="form-group">
                                 <label>Config key</label>
@@ -35,11 +35,12 @@
                                     @enderror
                                 </div>
                             @elseif (request()->type == 'Textarea')
-                                <textarea class="form-control @error('config_value') is-invalid @enderror" name="config_value" rows="5">
-                                </textarea>
-                                @error('config_value')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div class="form-group">
+                                    <textarea name="config_value" class="form-control @error('config_value') is-invalid @enderror" rows="5"></textarea>
+                                    @error('config_value')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             @endif
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>

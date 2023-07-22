@@ -14,7 +14,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="{{ route('settings.store', ['id' => $setting->id]) }}" method="post">
+                        <form action="{{ route('settings.update', ['id' => $setting->id]) }}" method="post">
                             @csrf
                             <div class="form-group">
                                 <label>Config key</label>
@@ -24,7 +24,8 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            @if (request()->type == 'Text')
+
+                            @if ($setting->type == 'Text')
                                 <div class="form-group">
                                     <label>Config value</label>
                                     <input type="text" class="form-control @error('config_value') is-invalid @enderror"
@@ -34,15 +35,15 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            @elseif (request()->type == 'Textarea')
-                                <textarea class="form-control @error('config_value') is-invalid @enderror" name="config_value" rows="5">
-                                    {{ $setting->config_value }}
-                                </textarea>
-                                @error('config_value')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                            @elseif ($setting->type == 'Textarea')
+                                <div class="form-group">
+                                    <textarea name="config_value" class="form-control @error('config_value') is-invalid @enderror" rows="5"> {{ $setting->config_value }}</textarea>
+                                    @error('config_value')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             @endif
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
                 </div>

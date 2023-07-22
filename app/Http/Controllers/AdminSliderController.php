@@ -9,11 +9,13 @@ use App\Traits\StorageImageTrait;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\LOG;
+use App\Traits\DeleteModelTrait;
 
 class AdminSliderController extends Controller
 {
     private $slider;
     use StorageImageTrait;
+    use DeleteModelTrait;
     public function __construct(Slider $slider)
     {
         $this->slider = $slider;
@@ -50,19 +52,7 @@ class AdminSliderController extends Controller
     }
     public function delete($id)
     {
-        try {
-            $this->slider->find($id)->delete();
-            return response()->json([
-                'code' => 200,
-                'message' => 'Delete success'
-            ], 200);
-        } catch (Exception $exception) {
-            Log::error('Message' . $exception->getMessage());
-            return response()->json([
-                'code' => 500,
-                'message' => 'Delete fail'
-            ], 500);
-        }
+        return $this->DeleteModelTrait($id, $this->slider);
     }
     public function edit($id)
     {
