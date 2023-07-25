@@ -1,0 +1,7 @@
+*
+!.gitignore
+try {
+  throw new Exception('foobar');
+} catch (Exception $e) {
+  Debugbar::addException($e);
+}

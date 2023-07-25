@@ -49,7 +49,7 @@
                                 <label>Chọn danh mục cha</label>
                                 <select class="form-control select2_init @error('parent_id') is-invalid @enderror"
                                     name="parent_id">
-                                    <option value="0">Chọn danh mục cha</option>
+                                    <option value="1">Chọn danh mục cha</option>
                                     {!! $htmlOption !!}
                                 </select>
                                 @error('parent_id')

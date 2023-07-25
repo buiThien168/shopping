@@ -16,7 +16,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block"></a>
             </div>
         </div>
 
@@ -91,6 +91,22 @@
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Danh sách quyền (Roles)
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('permissions.create') }}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Tạo dữ liệu quyền
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Logout
                         </p>
                     </a>
                 </li>

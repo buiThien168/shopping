@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Components\Recusive;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -16,6 +17,7 @@ class CategoryController extends Controller
     }
     public function index()
     {
+
         $category = $this->category->latest()->paginate(5);
         return view('admin.category.index', compact('category'));
     }
@@ -31,7 +33,7 @@ class CategoryController extends Controller
             'parent_id' => $request->parent_id,
             'slug' => Str::slug($request->name) //Str::slug chuyển dổi n doạn thành 1 chuỗi
         ]);
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('categories.index');
     }
     public function getCategory($parentid)
     {
@@ -53,11 +55,11 @@ class CategoryController extends Controller
             'parent_id' => $request->parent_id,
             'slug' => Str::slug($request->name) //Str::slug chuyển dổi n doạn thành 1 chuỗi
         ]);
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('categories.index');
     }
     public function delete($id)
     {
         $this->category->find($id)->delete();
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('categories.index');
     }
 }

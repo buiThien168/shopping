@@ -7,11 +7,7 @@
     {{-- <link href="{{ asset('admin_assest/slider/add/add.css') }}" rel="stylesheet" /> --}}
 @endsection
 @section('js')
-    <script>
-        $('.checkbox_wrapper').on('click', function() {
-            $(this).parents('.card').find('.checkbox_children').prop('checked', $(this).prop('checked'));
-        });
-    </script>
+    <script src="{{ asset('admin_assest/roles/add/add.js') }}"></script>
 @endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -24,7 +20,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <form action="{{ route('user.store') }}" method="post" enctype="multipart/form-data" style="width:100%;">
+                    <form action="{{ route('roles.store') }}" method="post" enctype="multipart/form-data" style="width:100%;">
                         <div class="col-md-12">
                             @csrf
                             <div class="form-group">
@@ -40,11 +36,15 @@
                         </div>
                         <div class="col-md-12">
                             <div class="row">
+                                <div class="col-md-12">
+                                    <input type="checkbox" class="checkall">
+                                    <label>CheckAll</label>
+                                </div>
                                 @foreach ($permission as $permissionItem)
                                     <div class="card border-primary mb-3 col-md-12">
                                         <div class="card-header" style="background-color: aquamarine;">
                                             <label>
-                                                <input type="checkbox" value="checkbox_wrapper">
+                                                <input type="checkbox" class="checkbox_wrapper">
                                             </label>
                                             Module {{ $permissionItem->name }}
                                         </div>

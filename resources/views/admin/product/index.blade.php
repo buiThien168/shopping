@@ -44,7 +44,8 @@
                                         <td>{{ number_format($productItem->price) }}</td>
                                         <td><img class="product_images" src="{{ $productItem->feature_image_path }}"
                                                 alt=""></td>
-                                        <td>{{ optional($productItem->category)->name }}</td>
+                                        {{-- <td>{{ optional($productItem->category)->name }}</td> --}}
+                                        <td>{{ $productItem->category_name }}</td>
                                         <td>
                                             <a href="{{ route('product.edit', ['id' => $productItem->id]) }}"
                                                 class="btn btn-default">Edit</a>

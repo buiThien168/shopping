@@ -47,4 +47,19 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
     }
+    public function checkPermissionAccess($permissionCheck)
+    {
+        // use login có quyền add, sauwr danh mục và menu
+        $roles = Auth()->User()->roles;
+        foreach ($roles as  $role) {
+            $permissions = $role->permission;
+            if ($permissions->contains('key_code', $permissionCheck)) {
+                return true;
+            }
+        }
+        return false;
+        // laays dc cacs quyeenf usser
+        // so sánh giá trị đưua vào route hiện tại và xem có tồn tại các quyền đó không
+        // return true;
+    }
 }

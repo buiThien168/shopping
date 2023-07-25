@@ -36,7 +36,11 @@ class AdminProductController extends Controller
     }
     public function index()
     {
-        $products = $this->product->latest()->paginate(5); //latest lấy cái mới nhất
+        // $products = $this->product->latest()->with('category')->paginate(5); //latest lấy cái mới nhất
+
+        $products = Product::join('categories', 'products.category_id', '=', 'categories.id')
+            ->select('products.*', 'categories.name as category_name')
+            ->paginate(5);
         return view('admin.product.index', compact('products'));
     }
     public function create()

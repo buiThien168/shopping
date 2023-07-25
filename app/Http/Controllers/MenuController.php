@@ -33,18 +33,18 @@ class MenuController extends Controller
             'parent_id' => $request->parent_id,
             'slug' => Str::slug($request->name) //Str::slug chuyển dổi n doạn thành 1 chuỗi
         ]);
-        return redirect()->route('admin.menus.index');
+        return redirect()->route('menus.index');
     }
     public function delete($id)
     {
         $this->menu->find($id)->delete();
-        return redirect()->route('admin.menus.index');
+        return redirect()->route('menus.index');
     }
     public function edit($id)
     {
         $menus = $this->menu->find($id);
         $optionSelect = $this->menuRecusive->menuRecusiveEdit($menus->parent_id);
-        return view('admin.menus.edit', compact('optionSelect', 'menus'));
+        return view('menus.edit', compact('optionSelect', 'menus'));
     }
     public function update($id, Request $request)
     {
@@ -53,6 +53,6 @@ class MenuController extends Controller
             'parent_id' => $request->parent_id,
             'slug' => Str::slug($request->name)
         ]);
-        return redirect()->route('admin.menus.index');
+        return redirect()->route('menus.index');
     }
 }
