@@ -12,11 +12,11 @@ class AdminPermissionController extends Controller
     public function index()
     {
 
-        return view('admin.permission.add');
+        return view('admins.admin.permission.add');
     }
     public function create()
     {
-        return view('admin.permission.add');
+        return view('admins.admin.permission.add');
     }
     public function store(Request $request)
     {

@@ -23,11 +23,11 @@ class AdminSliderController extends Controller
     public function index()
     {
         $slider = $this->slider->latest()->paginate(5);
-        return view('admin.slider.index', compact('slider'));
+        return view('admins.admin.slider.index', compact('slider'));
     }
     public function create()
     {
-        return view('admin.slider.add');
+        return view('admins.admin.slider.add');
     }
     public function store(SliderAddRequest $request)
     {
@@ -57,7 +57,7 @@ class AdminSliderController extends Controller
     public function edit($id)
     {
         $slider = $this->slider->find($id);
-        return view('admin.slider.edit', compact('slider'));
+        return view('admins.admin.slider.edit', compact('slider'));
     }
     public function update($id, Request $request)
     {

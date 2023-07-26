@@ -41,12 +41,12 @@ class AdminProductController extends Controller
         $products = Product::join('categories', 'products.category_id', '=', 'categories.id')
             ->select('products.*', 'categories.name as category_name')
             ->paginate(5);
-        return view('admin.product.index', compact('products'));
+        return view('admins.admin.product.index', compact('products'));
     }
     public function create()
     {
         $htmlOption = $this->getCategory($parentid = '');
-        return view('admin.product.add', compact('htmlOption'));
+        return view('admins.admin.product.add', compact('htmlOption'));
     }
     public function getCategory($parentid)
     {
@@ -101,7 +101,7 @@ class AdminProductController extends Controller
     {
         $product = $this->product->find($id);
         $htmlOption = $this->getCategory($product->category_id);
-        return view('admin.product.edit', compact('htmlOption', 'product'));
+        return view('admins.admin.product.edit', compact('htmlOption', 'product'));
     }
     public function update(Request $request, $id)
     {

@@ -24,12 +24,12 @@ class AdminUserController extends Controller
     public function index()
     {
         $user = $this->user->latest()->paginate(5);
-        return view('admin.users.index', compact('user'));
+        return view('admins.admin.users.index', compact('user'));
     }
     public function create()
     {
         $role = $this->role->all();
-        return view('admin.users.add', compact('role'));
+        return view('admins.admin.users.add', compact('role'));
     }
     public function store(Request $request)
     {
@@ -66,7 +66,7 @@ class AdminUserController extends Controller
         $role = $this->role->all();
         $user = $this->user->find($id);
         $roleOfUser = $user->roles;
-        return view('admin.users.edit', compact('user', 'role', 'roleOfUser'));
+        return view('admins.admin.users.edit', compact('user', 'role', 'roleOfUser'));
     }
     public function update($id, Request $request)
     {

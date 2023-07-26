@@ -18,11 +18,11 @@ class AdminSettingController extends Controller
     public function index()
     {
         $setting = $this->setting->latest()->paginate(5);
-        return view('admin.setting.index', compact('setting'));
+        return view('admins.admin.setting.index', compact('setting'));
     }
     public function create()
     {
-        return view('admin.setting.add');
+        return view('admins.admin.setting.add');
     }
     public function store(AddSettingRequest $request)
     {
@@ -40,7 +40,7 @@ class AdminSettingController extends Controller
     public function edit($id)
     {
         $setting = $this->setting->find($id);
-        return view('admin.setting.edit', compact('setting'));
+        return view('admins.admin.setting.edit', compact('setting'));
     }
     public function update($id, Request $request)
     {

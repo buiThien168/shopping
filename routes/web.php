@@ -10,26 +10,27 @@ use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminRolesController;
 use App\Http\Controllers\AdminPermissionController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-Route::get('/admin', [AdminController::class, 'loginAdmin']);
-// Route::get('/', [AdminController::class, 'logout'])->name('logout');
-Route::post('/admin', [AdminController::class, 'postLoginAdmin']);
-Route::get('/home', function () {
-    return view('home');
+//
+use App\Http\Controllers\User\UserController;
+//user
+Route::prefix('/')->group(function () {
+    Route::prefix('/')->group(function () {
+        Route::get('/', [UserController::class, 'loginUser'])->name('user.login');
+        Route::post('/', [UserController::class, 'postLoginUser']);
+        Route::get('/home', [UserController::class, 'home'])->name('home.user');
+    });
 });
-
+//admin
 Route::prefix('admin')->group(function () {
+    Route::prefix('/')->group(function () {
+        Route::get('/', [AdminController::class, 'loginAdmin'])->name('admin.login');
+        Route::post('/', [AdminController::class, 'postLoginAdmin']);
+        Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+        Route::get('/homeUser', [AdminController::class, 'homeUser'])->name('admin.home');
+        // Route::get('/home', function () {
+        //     return view('admins.home');
+        // });
+    });
     Route::prefix('categories')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('categories.index')->middleware('can:category-list');
         Route::get('/create', [CategoryController::class, 'create'])->name('categories.create')->middleware('can:category-add');

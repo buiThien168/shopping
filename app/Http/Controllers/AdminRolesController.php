@@ -22,12 +22,12 @@ class AdminRolesController extends Controller
     {
 
         $role = $this->role->latest()->paginate(5);
-        return view('admin.roles.index', compact('role'));
+        return view('admins.admin.roles.index', compact('role'));
     }
     public function create()
     {
         $permission = $this->permission->where('parent_id', 0)->get();
-        return view('admin.roles.add', compact('permission'));
+        return view('admins.admin.roles.add', compact('permission'));
     }
     public function store(Request $request)
     {
@@ -47,7 +47,7 @@ class AdminRolesController extends Controller
         $permission = $this->permission->where('parent_id', 0)->get();
         $role = $this->role->find($id);
         $permissionChecked = $role->permission;
-        return view('admin.roles.edit', compact('role', 'permission', 'permissionChecked'));
+        return view('admins.admin.roles.edit', compact('role', 'permission', 'permissionChecked'));
     }
     public function update($id, Request $request)
     {

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -14,7 +14,7 @@ class AdminController extends Controller
         // if (auth()->check()) {
         //     return redirect()->to('home');
         // }
-        return view('login');
+        return view('admins.login');
     }
     public function postLoginAdmin(Request $request)
     {
@@ -22,18 +22,20 @@ class AdminController extends Controller
         // $checkpass = Hash::check($request->password, $password_data);
 
         if (auth()->attempt([
-            'email' => 'admin@gmail.com',
-            'password' => '12345'
+            'email' => $request->email,
+            'password' => $request->password
         ], $remember)) {
-
-            return redirect()->to('home');
+            return redirect()->route('admin.home');
         } else {
-            dd('sd0');
         }
     }
-    // public function logout()
-    // {
-    //     Auth::logout();
-    //     // $this->loginAdmin();
-    // }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('admin.login');
+    }
+    public function homeUser()
+    {
+        return view('admins.home');
+    }
 }
