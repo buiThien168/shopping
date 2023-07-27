@@ -7,14 +7,16 @@
                     <img src="{{ $itemProducts->feature_image_path }}" alt="" />
                     <h2>{{ $itemProducts->price }}</h2>
                     <p>{{ $itemProducts->name }}</p>
-                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
+                    <a href="{{ route('product_detail.user', ['id' => $itemProducts->id]) }}"
+                        class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
                         cart</a>
                 </div>
                 <div class="product-overlay">
                     <div class="overlay-content">
                         <h2>{{ $itemProducts->price }}</h2>
                         <p>{{ $itemProducts->name }}</p>
-                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
+                        <a href="{{ route('product_detail.user', ['slug' => $itemProducts->slug, 'id' => $itemProducts->id]) }}"
+                            class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
                             cart</a>
                     </div>
                 </div>

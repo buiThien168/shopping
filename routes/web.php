@@ -10,6 +10,9 @@ use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminRolesController;
 use App\Http\Controllers\AdminPermissionController;
+use App\Http\Controllers\User\CategoryUserController;
+use App\Http\Controllers\User\Product_detailUserController;
+use App\Http\Controllers\User\Product_cartController;
 //
 use App\Http\Controllers\User\UserController;
 //user
@@ -17,7 +20,15 @@ Route::prefix('/')->group(function () {
     Route::prefix('/')->group(function () {
         Route::get('/', [UserController::class, 'loginUser'])->name('user.login');
         Route::post('/', [UserController::class, 'postLoginUser']);
-        Route::get('/home', [UserController::class, 'home'])->name('home.user');
+        Route::get('/home', [UserController::class, 'home'])->name('home.user')->middleware('auth');
+        Route::get('/logout', [UserController::class, 'logout'])->name('logout.user');
+        Route::get('/category/{id}', [CategoryUserController::class, 'index'])->name('category.user');
+        Route::post('/store', [Product_detailUserController::class, 'store'])->name('order.store');
+        Route::get('/product_detail/{id}', [Product_detailUserController::class, 'index'])->name('product_detail.user');
+        Route::get('/cart', [Product_cartController::class, 'index'])->name('cart.user');
+        Route::get('/delete/{id}', [Product_cartController::class, 'delete'])->name('cart.delete.user');
+        Route::get('/update', [Product_cartController::class, 'update'])->name('cart.update.user');
+        Route::get('/checkout', [Product_cartController::class, 'checkout'])->name('cart.checkout.user');
     });
 });
 //admin

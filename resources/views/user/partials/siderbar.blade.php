@@ -3,35 +3,43 @@
         <h2>Category</h2>
         <div class="panel-group category-products" id="accordian">
             <!--category-productsr-->
-
             @foreach ($category as $itemCategory)
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordian" href="#sportswear_{{ $itemCategory->id }}">
-                                <span class="badge pull-right">
-                                    @if ($itemCategory->CategoryChildent->count())
-                                        <i class="fa fa-plus"></i>
-                                    @endif
-                                </span>
-                                {{ $itemCategory->name }}
-                            </a>
+                            @if ($itemCategory->CategoryChildent->count())
+                                <a data-toggle="collapse" data-parent="#accordian"
+                                    href="#sportswear_{{ $itemCategory->id }}">
+                                    <span class="badge pull-right">
+                                        @if ($itemCategory->CategoryChildent->count())
+                                            <i class="fa fa-plus"></i>
+                                        @endif
+                                    </span>
+                                    {{ $itemCategory->name }}
+                                </a>
+                            @else
+                                <a href="">
+                                    <span class="badge pull-right">
+
+                                    </span>
+                                    {{ $itemCategory->name }}
+                                </a>
+                            @endif
                         </h4>
                     </div>
                     <div id="sportswear_{{ $itemCategory->id }}" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul>
                                 @foreach ($itemCategory->CategoryChildent as $value)
-                                    <li><a href="#">{{ $value->name }}</a></li>
+                                    <li><a
+                                            href="{{ route('category.user', ['slug' => $value->slug, 'id' => $value->id]) }}">{{ $value->name }}</a>
+                                    </li>
                                 @endforeach
-
                             </ul>
                         </div>
                     </div>
                 </div>
             @endforeach
-
-
         </div>
         <!--/category-products-->
         {{-- {{ dd($category) }} --}}
